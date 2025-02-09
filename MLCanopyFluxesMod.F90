@@ -6,13 +6,13 @@ module MLCanopyFluxesMod
   !
   ! !USES:
 
-  use MLCanopyCouplerMod, only : endrun
-  use MLCanopyCouplerMod, only : ispval
-  use MLCanopyCouplerMod, only : spval
-  use MLCanopyCouplerMod, only : nlevgrnd
-  use MLCanopyCouplerMod, only : numrad
-  use MLCanopyCouplerMod, only : r8
-  use MLCanopyCouplerMod, only : iulog
+  use shr_kind_mod, only : r8 => shr_kind_r8
+  use MLCanopyVarCtl, only : endrun
+  use MLCanopyVarPar, only : ispval
+  use MLCanopyVarPar, only : spval
+  use MLCanopyVarPar, only : nlevgrnd
+  use MLCanopyVarPar, only : numrad
+  use MLCanopyVarPar, only : iulog
 
   !
   ! !PUBLIC TYPES:
