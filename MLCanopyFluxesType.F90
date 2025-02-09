@@ -5,10 +5,10 @@ module MLCanopyFluxesType
   ! Multilayer canopy module data structure
   !
   ! !USES:
-  use MLCanopyCouplerMod, only : endrun
-  use MLCanopyCouplerMod, only : ispval
-  use MLCanopyCouplerMod, only : spval
-  use MLCanopyCouplerMod, only : nlevgrnd
+  use MLCanopyVarCtl, only : endrun
+  use MLCanopyVarCon, only : ispval
+  use MLCanopyVarCon, only : spval
+  use MLCanopyVarCtl, only : nlevgrnd
   use MLCanopyCouplerMod, only : numrad
   use MLCanopyCouplerMod, only : r8
   
@@ -268,6 +268,8 @@ module MLCanopyFluxesType
     real(r8), pointer :: fwet_profile(:,:)       ! Canopy layer fraction of plant area index that is wet
     real(r8), pointer :: fdry_profile(:,:)       ! Canopy layer fraction of plant area index that is green and dry
 
+    real(r8), pointer :: dleaf_profile(:,:)      ! Canopy layer Mean leaf diameter (m)
+    
     ! Sunlit/shaded leaf variables for canopy layers (fluxes are per m2 leaf area): dimension is (patch, level, leaf)
 
     real(r8), pointer :: tleaf_leaf(:,:,:)       ! Leaf temperature (K)
@@ -282,6 +284,7 @@ module MLCanopyFluxesType
     real(r8), pointer :: trleaf_leaf(:,:,:)      ! Leaf transpiration flux (mol H2O/m2 leaf/s)
     real(r8), pointer :: evleaf_leaf(:,:,:)      ! Leaf evaporation flux (mol H2O/m2 leaf/s)
 
+    
     real(r8), pointer :: gbh_leaf(:,:,:)         ! Leaf boundary layer conductance: heat (mol/m2 leaf/s)
     real(r8), pointer :: gbv_leaf(:,:,:)         ! Leaf boundary layer conductance: H2O (mol H2O/m2 leaf/s)
     real(r8), pointer :: gbc_leaf(:,:,:)         ! Leaf boundary layer conductance: CO2 (mol CO2/m2 leaf/s)
@@ -563,6 +566,7 @@ contains
     allocate (this%h2ocan_profile      (begp:endp,1:nlevmlcan))                  ; this%h2ocan_profile      (:,:)     = spval
     allocate (this%fwet_profile        (begp:endp,1:nlevmlcan))                  ; this%fwet_profile        (:,:)     = spval
     allocate (this%fdry_profile        (begp:endp,1:nlevmlcan))                  ; this%fdry_profile        (:,:)     = spval
+    allocate (this%dleaf_profile       (begp:endp,1:nlevmlcan))                  ; this%dleaf_profile        (:,:)    = spval
 
     ! Sunlit/shaded leaf variables for canopy layers
 

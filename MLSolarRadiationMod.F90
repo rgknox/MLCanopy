@@ -42,21 +42,29 @@ module MLSolarRadiationMod
      real(r8), allocatable :: xl(:)             ! leaf/stem orientation (pft)
      real(r8), allocatable :: clump_fac(:)      ! clumping index 0-1, when
                                                 ! leaves stick together (pft)
-
-     ! Derived parameters
-     !real(r8), allocatable :: phi1(:)       ! intermediate term for kd and kb
-     !real(r8), allocatable :: phi2(:)       ! intermediate term for kd and kb
-     !real(r8), allocatable :: avmu(:)       ! average "av" inverse optical depth "mu" per unit leaf and stem area
-     !real(r8), allocatable :: kd_leaf(:)    ! Mean optical depth per unit area leaves in diffuse
-     !real(r8), allocatable :: kd_stem(:)    ! Mean optical depth per unit area stems in diffuse
-     !real(r8), allocatable :: om_leaf(:,:)  ! Leaf scattering coefficient (band x pft)
-     !real(r8), allocatable :: om_stem(:,:)  ! Stem scattering coefficient (band x pft)
   end type rad_params_type
 
   type(rad_params_type),public :: rad_params
   
 contains
 
+
+  subroutine AllocateRadParams(n_pft)
+      
+    integer,intent(in) :: n_pft
+    integer,intent(in) :: numrad
+    
+    ! Include the zeroth pft index for air
+    
+    allocate(rad_params%rhol(n_pft,numrad))
+    allocate(rad_params%rhos(n_pft,numrad))
+    allocate(rad_params%taul(n_pft,numrad))
+    allocate(rad_params%taus(n_pft,numrad))
+    allocate(rad_params%xl(n_pft))
+    allocate(rad_params%clump_fac(n_pft))
+
+  end subroutine AllocateRadParams
+  
   !-----------------------------------------------------------------------
   subroutine SolarRadiation (mlcanopy_inst,pft_index)
     !
@@ -113,12 +121,6 @@ contains
     filter      => mlcanopy_inst%filter            , &
     filtern     => mlcanopy_inst%filtern           , &
                                                         ! *** Input ***
-    !xl          => pftcon%xl                       , &  ! CLM: Departure of leaf angle from spherical orientation (-)
-    !rhol        => pftcon%rhol                     , &  ! CLM: Leaf reflectance (-)
-    !taul        => pftcon%taul                     , &  ! CLM: Leaf transmittance (-)
-    !rhos        => pftcon%rhos                     , &  ! CLM: Stem reflectance (-)
-    !taus        => pftcon%taus                     , &  ! CLM: Stem transmittance (-)
-    !clump_fac   => pftcon%clump_fac                , &  ! CLMml: Foliage clumping index (-)
     solar_zen   => mlcanopy_inst%solar_zen_forcing , &  ! Solar zenith angle (radians)
     ncan        => mlcanopy_inst%ncan_canopy       , &  ! Number of aboveground layers
     ntop        => mlcanopy_inst%ntop_canopy       , &  ! Index for top leaf layer
@@ -575,8 +577,7 @@ contains
     ! can vary with depth in the canopy.
     !
     ! !USES:
-    use clm_varpar, only : numrad
-    use MLclm_varpar, only : nlevmlcan, isun, isha
+    use MLclm_varpar, only : nlevmlcan, isun, isha, numrad
     !
     ! !ARGUMENTS:
     implicit none
