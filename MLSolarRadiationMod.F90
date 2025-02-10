@@ -86,7 +86,7 @@ contains
     ! !ARGUMENTS:
     implicit none
     type(mlcanopy_type), intent(inout) :: mlcanopy_inst
-    integer, intent(in) :: pft_index(mlcanopy_inst%begp:mlcanopy_inst%endp)
+    integer, intent(in) :: pft_index(mlcanopy_inst%begp:)
     
     !
     ! !LOCAL VARIABLES:
