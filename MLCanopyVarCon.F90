@@ -5,7 +5,11 @@ module MLCanopyVarCon
   ! Module containing multilayer canopy model constants
   !
   ! !USES:
-  use shr_kind_mod, only : r8 => shr_kind_r8
+  use shr_kind_mod,  only: r8 => shr_kind_r8
+  use shr_const_mod, only: SHR_CONST_G,SHR_CONST_KARMAN
+  use shr_const_mod, only: SHR_CONST_STEBOL,SHR_CONST_PI
+  use shr_const_mod, only: SHR_CONST_CPFW,SHR_CONST_TKFRZ
+
   !
   ! !PUBLIC TYPES:
   implicit none
@@ -13,9 +17,13 @@ module MLCanopyVarCon
   
   !RGK: SHOULDN'T MOST OF THESE HAVE THE PARAMETER DESCRIBER?
    
-
+  real(r8), public :: grav   = SHR_CONST_G                          ! gravity constant [m/s2]
+  real(r8), public :: sb     = SHR_CONST_STEBOL                     ! stefan-boltzmann constant  [W/m2/K4]
+  real(r8), public :: vkc    = SHR_CONST_KARMAN                     ! von Karman constant [-]
+  real(r8), public :: pi     = SHR_CONST_PI
+  real(r8), public :: cpliq  = SHR_CONST_CPFW                       ! Specific heat of water [J/kg-K]
+  real(r8), public, parameter :: tfrz   = SHR_CONST_TKFRZ           ! freezing temperature [K]
   
-
   ! Physical constants for multilayer canopy
   real(r8) :: rgas = 8.31446_r8                        ! Universal gas constant (J/K/mol)
   real(r8) :: mmdry = 28.97_r8 * 1.e-03_r8             ! Molecular mass of dry air (kg/mol)
