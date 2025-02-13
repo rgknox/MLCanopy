@@ -5,19 +5,20 @@ module MLSolarRadiationMod
   ! Calculate solar radiation transfer through canopy
   !
   ! !USES:
-  
-  use MLCanopyCouplerMod, only : endrun
-  use MLCanopyCouplerMod, only : ispval
-  use MLCanopyCouplerMod, only : spval
-  use MLCanopyCouplerMod, only : nlevgrnd
-  use MLCanopyCouplerMod, only : numrad
-  use MLCanopyCouplerMod, only : r8
-  use MLCanopyCouplerMod, only : iulog
-  use MLCanopyCouplerMod, only : pi
-  use MLCanopyCouplerMod, only : ivis
-  use MLclm_varcon, only : chil_max, chil_min, kb_max, J_to_umol
-  use MLclm_varctl, only : light_type
-  use MLclm_varpar, only : nlevmlcan, isun, isha
+
+  use shr_kind_mod, only : r8 => shr_kind_r8
+  use MLCanopyVarCtl, only : endrun
+  use MLCanopyVarPar, only : ispval
+  use MLCanopyVarPar, only : spval
+  use MLCanopyVarPar, only : nlevgrnd
+  use MLCanopyVarPar, only : numrad
+  use MLCanopyVarPar, only : iulog
+
+  use MLCanopyVarCon, only : pi
+  use MLCanopyVarPar, only : ivis
+  use MLCanopyVarCon, only : chil_max, chil_min, kb_max, J_to_umol
+  use MLCanopyVarCtl, only : light_type
+  use MLCanopyVarPar, only : nlevmlcan, isun, isha
   
   use MLCanopyFluxesType, only : mlcanopy_type
   !
